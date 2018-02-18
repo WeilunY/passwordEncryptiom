@@ -1,6 +1,4 @@
 /* File Header */
-import javax.lang.model.util.ElementScanner6;
-
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
