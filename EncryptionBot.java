@@ -31,7 +31,7 @@ public class EncryptionBot
     // Performs encryption, returns encrypted password.
     public String encryptedPassword(String simplePass, String encKey)
     {
-        return "test";
+        return "test password";
     }
 
     public String getEncryptedPassword()

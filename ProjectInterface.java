@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,9 +17,11 @@ import javafx.event.EventHandler;
 /* Class Header */
 public class ProjectInterface extends Application
 {
+    final int MIN_PASSWORD_LENGTH = 6;
     TextField accInput;
     TextField passInput;
     TextField passOutput;
+    Text infoText;
 
     /* Method Header */
     public void start(Stage primaryStage)
@@ -43,6 +47,10 @@ public class ProjectInterface extends Application
         passOutput = new TextField();
         passOutput.setEditable(false);
         pane.add(passOutput, 2, 4);
+        infoText = new Text("");
+        infoText.setTextAlignment(TextAlignment.RIGHT);
+        infoText.setVisible(true);
+        pane.add(infoText, 2, 5);
 
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Encryption Tool"); 
@@ -58,17 +66,22 @@ public class ProjectInterface extends Application
             if(accInput.getLength() == 0)
             {
                 passOutput.clear();
+                infoText.setText("Enter Account/Website");
                 return;
             }
-            else if(passInput.getLength() == 0)
+            else if(passInput.getLength() < MIN_PASSWORD_LENGTH)
             {
                 passOutput.clear();
                 passInput.requestFocus();
+                infoText.setText("Enter 6+ char password");
             }
             else
             {
                 EncryptionBot encrypter = new EncryptionBot(passInput.getText());
                 passOutput.setText(encrypter.getEncryptedPassword());
+                passOutput.requestFocus();
+                passOutput.selectAll();
+                infoText.setText("Encryption successful!");
             }
         }
     }
@@ -78,20 +91,25 @@ public class ProjectInterface extends Application
     {
         public void handle(ActionEvent e) 
         {
-            if(passInput.getLength() == 0)
+            if(passInput.getLength() < MIN_PASSWORD_LENGTH)
             {
                 passOutput.clear();
+                infoText.setText("Enter 6+ char password");
                 return;
             }
             else if(accInput.getLength() == 0)
             {
                 passOutput.clear();
                 accInput.requestFocus();
+                infoText.setText("Enter Account/Website");
             }
             else
             {
                 EncryptionBot encrypter = new EncryptionBot(passInput.getText());
                 passOutput.setText(encrypter.getEncryptedPassword());
+                passOutput.requestFocus();
+                passOutput.selectAll();
+                infoText.setText("Encryption successful!");
             }
         }
     }  
@@ -101,7 +119,13 @@ public class ProjectInterface extends Application
     {
         public void handle(ActionEvent e) 
         {
-            passOutput.setText("info");
+            if(infoText.getText().equals("Information"))
+            {
+                infoText.setText("");
+                return;
+            }
+            else
+                infoText.setText("Information");
         }
     }
 }
