@@ -67,7 +67,8 @@ public class ProjectInterface extends Application
             }
             else
             {
-                passOutput.setText("Encrypted Password");
+                EncryptionBot encrypter = new EncryptionBot(passInput.getText());
+                passOutput.setText(encrypter.getEncryptedPassword());
             }
         }
     }
@@ -89,7 +90,8 @@ public class ProjectInterface extends Application
             }
             else
             {
-                passOutput.setText("Encrypted Password");
+                EncryptionBot encrypter = new EncryptionBot(passInput.getText());
+                passOutput.setText(encrypter.getEncryptedPassword());
             }
         }
     }  
