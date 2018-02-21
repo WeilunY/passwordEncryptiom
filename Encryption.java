@@ -151,6 +151,89 @@ public class Encryption{
     return result;
   }
 
+  // Use for changing keys
+  public void modifyKeys(){
+    ArrayList<Character> key1 = new ArrayList<Character>();
+    ArrayList<Character> key2 = new ArrayList<Character>();
+    //Initialize both key1 and key2
+    if(hasUpper){
+      String u = "ABCDEFGHIJILMNOPQRSTUVWXYZ";
+      for(char ch : u.toCharArray()){
+        key1.add(ch);
+      }
+    }
+
+    if(hasLower){
+      String l = "abcdefjhijklmnopqrstuvwxyz";
+      for(char ch : l.toCharArray()){
+        key1.add(ch);
+      }
+    }
+
+    if(hasNumber){
+      String n = "1234567890";
+      for(char ch : n.toCharArray()){
+        key1.add(ch);
+      }
+    }
+
+    if(hasSpecial){
+      String s = "!\"#$%&\'()*+,-./:;<=>?@[\\]_{|}";
+      for(char ch : s.toCharArray()){
+        key1.add(ch);
+      }
+    }
+
+    // wants
+    if(wantUpper){
+      String u = "ABCDEFGHIJILMNOPQRSTUVWXYZ";
+      for(char ch : u.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    if(wantLower){
+      String l = "abcdefjhijklmnopqrstuvwxyz";
+      for(char ch : l.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    if(wantNumber){
+      String n = "1234567890";
+      for(char ch : n.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    if(wantSpecial){
+      String s = "!\"#$%&\'()*+,-./:;<=>?@[\\]_{|}";
+      for(char ch : s.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    // shuffle both keys
+    Collections.shuffle(key1);
+    Collections.shuffle(key2);
+
+    this.keyOne = new char[key1.size()];
+    for(int i = 0; i < key1.size(); i++){
+      keyOne[i] = key1.get(i);
+    }
+
+    this.keyTwo = new char[key2.size()];
+    for(int i = 0; i < key2.size(); i++){
+      keyTwo[i] = key2.get(i);
+    }
+
+  }
+
+  public boolean[] getNeeds(){
+    boolean[] needs = {wantUpper, wantLower, wantNumber, wantSpecial};
+    return needs;
+  }
+  
   // Help methods:
   public static int getIndex(char a, char[] arr){
     int pos = 0;
