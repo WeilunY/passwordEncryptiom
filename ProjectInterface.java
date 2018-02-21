@@ -14,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import java.util.*;
 
 /* Class Header */
 public class ProjectInterface extends Application
@@ -126,6 +127,12 @@ public class ProjectInterface extends Application
                 accInput.requestFocus();
                 infoText.setText("Enter Account/Website");
             }
+            else if(checkRep(passInput.getText()) == false){
+                passOutput.clear();
+                infoText.setText("Please enter more than 4 different chars");
+                return;
+
+            }
             else
             {
                 Encryption encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
@@ -186,5 +193,23 @@ public class ProjectInterface extends Application
               infoText.setText("Please select at least one box");
             }
         }
+    }
+
+    public static boolean checkRep(String o){
+      int variation = 0;
+      ArrayList<Character> v = new ArrayList<Character>();
+      v.add(o.charAt(0));
+      boolean check = true;
+      for(int i = 0; i < o.length(); i++){
+        for(int j = 0; j < v.size(); j++){
+          if(v.get(j) == o.charAt(i))
+            check = false;
+        }
+        if(check){
+          variation++;
+          v.add(o.charAt(i));
+        }
+      }
+      return variation > 4;
     }
 }
