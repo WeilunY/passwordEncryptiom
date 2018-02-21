@@ -36,7 +36,7 @@ public class ProjectInterface extends Application
         accInput = new TextField();
         accInput.setOnAction(new AccHandler());
         pane.add(accInput, 0, 2);
-        pane.add(new Label("Simple Password"), 3, 1); 
+        pane.add(new Label("Simple Password"), 3, 1);
         passInput = new TextField();
         passInput.setOnAction(new PassHandler());
         pane.add(passInput, 3, 2);
@@ -53,15 +53,15 @@ public class ProjectInterface extends Application
         pane.add(infoText, 2, 5);
 
         Scene scene = new Scene(pane);
-        primaryStage.setTitle("Encryption Tool"); 
-        primaryStage.setScene(scene); 
-        primaryStage.show(); 
+        primaryStage.setTitle("Encryption Tool");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     // Class for handling Account/Website input
-    class AccHandler implements EventHandler<ActionEvent> 
+    class AccHandler implements EventHandler<ActionEvent>
     {
-        public void handle(ActionEvent e) 
+        public void handle(ActionEvent e)
         {
             if(accInput.getLength() == 0)
             {
@@ -85,11 +85,11 @@ public class ProjectInterface extends Application
             }
         }
     }
-      
+
     // Class for handling password input.
-    class PassHandler implements EventHandler<ActionEvent> 
+    class PassHandler implements EventHandler<ActionEvent>
     {
-        public void handle(ActionEvent e) 
+        public void handle(ActionEvent e)
         {
             if(passInput.getLength() < MIN_PASSWORD_LENGTH)
             {
@@ -105,19 +105,19 @@ public class ProjectInterface extends Application
             }
             else
             {
-                EncryptionBot encrypter = new EncryptionBot(passInput.getText());
-                passOutput.setText(encrypter.getEncryptedPassword());
+                Encryption encrypter = new Encryption(passInput.getText(), true, true, true, true);
+                passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
                 infoText.setText("Encryption successful!");
             }
         }
-    }  
-    
+    }
+
     // Class for handling info button press.
-    class InfoHandler implements EventHandler<ActionEvent> 
+    class InfoHandler implements EventHandler<ActionEvent>
     {
-        public void handle(ActionEvent e) 
+        public void handle(ActionEvent e)
         {
             if(infoText.getText().equals("Information"))
             {

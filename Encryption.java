@@ -18,6 +18,16 @@ public class Encryption{
   private char[] keyOne;
   private char[] keyTwo;
 
+  private String account = "NONE";
+
+
+  public Encryption(String simple, boolean wantUpper,
+                    boolean wantLower, boolean wantNumber,
+                    boolean wantSpecial, String account){
+      this(simple, wantUpper, wantLower, wantNumber, wantSpecial);
+      this.account = account;
+    }
+
   public Encryption(String simple, boolean wantUpper,
                     boolean wantLower, boolean wantNumber,
                     boolean wantSpecial){
@@ -233,6 +243,10 @@ public class Encryption{
   public boolean[] getNeeds(){
     boolean[] needs = {wantUpper, wantLower, wantNumber, wantSpecial};
     return needs;
+  }
+
+  public String getAccount(){
+    return this.account;
   }
 
   // Help methods:
