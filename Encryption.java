@@ -149,6 +149,7 @@ public class Encryption{
     }
 
     String encrypted = new String(e);
+
     return encrypted;
   }
 

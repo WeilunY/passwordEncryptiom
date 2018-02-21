@@ -23,10 +23,10 @@ public class ProjectInterface extends Application
     TextField passInput;
     TextField passOutput;
     Text infoText;
-    boolean hasUpper = false;
-    boolean hasLower = false;
-    boolean hasNumber = false;
-    boolean hasSpecial = false;
+    boolean hasUpper = true;
+    boolean hasLower = true;
+    boolean hasNumber = true;
+    boolean hasSpecial = true;
     CheckBox checkUpper;
     CheckBox checkLower;
     CheckBox checkNumber;
@@ -161,7 +161,7 @@ public class ProjectInterface extends Application
             {
                 hasUpper = true;
             }
-            else 
+            else
                 hasUpper = false;
             if(checkLower.isSelected())
             {
@@ -181,6 +181,10 @@ public class ProjectInterface extends Application
             }
             else
                 hasSpecial = false;
+            if(!hasUpper && !hasLower && !hasNumber && !hasSpecial)
+            {
+              infoText.setText("Please select at least one box");
+            }
         }
     }
 }

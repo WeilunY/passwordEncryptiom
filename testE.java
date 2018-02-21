@@ -13,6 +13,7 @@ public class testE{
     input.close();
     String e = test1.getEncrypted();
     boolean correct = false;
+
     while(correct != true){
 
       boolean u = false;
@@ -39,6 +40,8 @@ public class testE{
       }
       }
     }
+    System.out.println("key 1 : " + key1);
+    System.out.println("key 2 : " + key2);
     System.out.println("Encryption: " + e);
 
   }
