@@ -122,7 +122,8 @@ public class Encryption{
 
   }
 
-  public Encryption(String keyOne, String keyTwo){
+  public Encryption(String simple, String keyOne, String keyTwo){
+    this.original = simple;
     this.keyOne = keyOne.toCharArray();
     this.keyTwo = keyTwo.toCharArray();
   }
@@ -233,7 +234,7 @@ public class Encryption{
     boolean[] needs = {wantUpper, wantLower, wantNumber, wantSpecial};
     return needs;
   }
-  
+
   // Help methods:
   public static int getIndex(char a, char[] arr){
     int pos = 0;
