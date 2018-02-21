@@ -15,8 +15,8 @@ public class Encryption{
 
   private int length;
 
-  private ArrayList<Character> key1 = new ArrayList<Character>();
-  private ArrayList<Character> key2 = new ArrayList<Character>();
+  private char[] keyOne;
+  private char[] keyTwo;
 
   public Encryption(String simple, boolean wantUpper,
                     boolean wantLower, boolean wantNumber,
@@ -45,13 +45,13 @@ public class Encryption{
         this.hasSpecial = true;
     }
 
+    ArrayList<Character> key1 = new ArrayList<Character>();
+    ArrayList<Character> key2 = new ArrayList<Character>();
     //Initialize both key1 and key2
     if(hasUpper){
       String u = "ABCDEFGHIJILMNOPQRSTUVWXYZ";
       for(char ch : u.toCharArray()){
         key1.add(ch);
-        if(wantUpper)
-          key2.add(ch);
       }
     }
 
@@ -59,8 +59,6 @@ public class Encryption{
       String l = "abcdefjhijklmnopqrstuvwxyz";
       for(char ch : l.toCharArray()){
         key1.add(ch);
-        if(wantLower)
-          key2.add(ch);
       }
     }
 
@@ -68,8 +66,6 @@ public class Encryption{
       String n = "1234567890";
       for(char ch : n.toCharArray()){
         key1.add(ch);
-        if(wantNumber)
-          key2.add(ch);
       }
     }
 
@@ -77,8 +73,35 @@ public class Encryption{
       String s = "!\"#$%&\'()*+,-./:;<=>?@[\\]_{|}";
       for(char ch : s.toCharArray()){
         key1.add(ch);
-        if(wantSpecial)
-          key2.add(ch);
+      }
+    }
+
+    // wants
+    if(wantUpper){
+      String u = "ABCDEFGHIJILMNOPQRSTUVWXYZ";
+      for(char ch : u.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    if(wantLower){
+      String l = "abcdefjhijklmnopqrstuvwxyz";
+      for(char ch : l.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    if(wantNumber){
+      String n = "1234567890";
+      for(char ch : n.toCharArray()){
+        key2.add(ch);
+      }
+    }
+
+    if(wantSpecial){
+      String s = "!\"#$%&\'()*+,-./:;<=>?@[\\]_{|}";
+      for(char ch : s.toCharArray()){
+        key2.add(ch);
       }
     }
 
@@ -86,22 +109,56 @@ public class Encryption{
     Collections.shuffle(key1);
     Collections.shuffle(key2);
 
+    keyOne = new char[key1.size()];
+    for(int i = 0; i < key1.size(); i++){
+      keyOne[i] = key1.get(i);
+    }
+
+    keyTwo = new char[key2.size()];
+    for(int i = 0; i < key2.size(); i++){
+      keyTwo[i] = key2.get(i);
+    }
+
+
+  }
+
+  public Encryption(String keyOne, String keyTwo){
+    this.keyOne = keyOne.toCharArray();
+    this.keyTwo = keyTwo.toCharArray();
   }
 
   public String getEncrypted(){
-    String encrypted = "";
+    char[] e = new char[length];
+    char[] o = original.toCharArray();
 
-    // need more...
+    for(int i = 0; i < o.length; i++){
+      int pos = getIndex(o[i], keyOne);
+      if (pos >= 0)
+        e[i] = keyTwo[pos];
+    }
 
+    String encrypted = new String(e);
     return encrypted;
   }
 
   public String getKey1(){
-    return Arrays.toString(this.key1.toArray());
+    String result = new String(keyOne);
+    return result;
   }
 
   public String getKey2(){
-    return Arrays.toString(this.key2.toArray());
+    String result = new String(keyTwo);
+    return result;
   }
 
+  // Help methods:
+  public static int getIndex(char a, char[] arr){
+    int pos = 0;
+    for(int i = 0; i < arr.length; i++){
+      if(arr[i] == a){
+        pos = i;
+      }
+    }
+    return pos;
+  }
 }
