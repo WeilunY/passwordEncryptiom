@@ -15,8 +15,8 @@ public class Encryption{
 
   private int length;
 
-  private ArrayList<Character> key1;
-  private ArrayList<Character> key2;
+  private ArrayList<Character> key1 = new ArrayList<Character>();
+  private ArrayList<Character> key2 = new ArrayList<Character>();
 
   public Encryption(String simple, boolean wantUpper,
                     boolean wantLower, boolean wantNumber,
