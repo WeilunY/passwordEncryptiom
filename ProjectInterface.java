@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,14 @@ public class ProjectInterface extends Application
     TextField passInput;
     TextField passOutput;
     Text infoText;
+    boolean hasUpper = false;
+    boolean hasLower = false;
+    boolean hasNumber = false;
+    boolean hasSpecial = false;
+    CheckBox checkUpper;
+    CheckBox checkLower;
+    CheckBox checkNumber;
+    CheckBox checkSpecial;
 
     /* Method Header */
     public void start(Stage primaryStage)
@@ -51,6 +60,18 @@ public class ProjectInterface extends Application
         infoText.setTextAlignment(TextAlignment.RIGHT);
         infoText.setVisible(true);
         pane.add(infoText, 2, 5);
+        checkUpper = new CheckBox("Uppercase");
+        checkLower = new CheckBox("Lowercase");
+        checkNumber = new CheckBox("Number");
+        checkSpecial = new CheckBox("Special Character");
+        checkUpper.setOnAction(new CheckHandler());
+        checkLower.setOnAction(new CheckHandler());
+        checkNumber.setOnAction(new CheckHandler());
+        checkSpecial.setOnAction(new CheckHandler());
+        pane.add(checkUpper, 2, 6);
+        pane.add(checkLower, 2, 7);
+        pane.add(checkNumber, 2, 8);
+        pane.add(checkSpecial, 2, 9);
 
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Encryption Tool");
@@ -77,8 +98,10 @@ public class ProjectInterface extends Application
             }
             else
             {
-                EncryptionBot encrypter = new EncryptionBot(passInput.getText());
-                passOutput.setText(encrypter.getEncryptedPassword());
+                // EncryptionBot encrypter = new EncryptionBot(passInput.getText());
+                Encryption encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
+                passOutput.setText(encrypter.getEncrypted());
+                //passOutput.setText(encrypter.getEncryptedPassword());
                 passOutput.requestFocus();
                 passOutput.selectAll();
                 infoText.setText("Encryption successful!");
@@ -105,7 +128,7 @@ public class ProjectInterface extends Application
             }
             else
             {
-                Encryption encrypter = new Encryption(passInput.getText(), true, true, true, true);
+                Encryption encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
                 passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
@@ -126,6 +149,38 @@ public class ProjectInterface extends Application
             }
             else
                 infoText.setText("Information");
+        }
+    }
+
+    // Class for handling check boxes.
+    class CheckHandler implements EventHandler<ActionEvent>
+    {
+        public void handle(ActionEvent e)
+        {
+            if(checkUpper.isSelected())
+            {
+                hasUpper = true;
+            }
+            else 
+                hasUpper = false;
+            if(checkLower.isSelected())
+            {
+                hasLower = true;
+            }
+            else
+                hasLower = false;
+            if(checkNumber.isSelected())
+            {
+                hasNumber = true;
+            }
+            else
+                hasNumber = false;
+            if(checkSpecial.isSelected())
+            {
+                hasSpecial = true;
+            }
+            else
+                hasSpecial = false;
         }
     }
 }
