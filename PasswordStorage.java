@@ -3,17 +3,15 @@ import java.io.FileOutputStream;
 import java.io.*;
 
 public class PasswordStorage{
-	public static void main(String[] args){
-		LinkedHashMap<String,String> passwords = new LinkedHashMap<>();
-		readPasswordsToMap(passwords);
-		writePasswordsFromMap(passwords);
+	LinkedHashMap<String,String> pMap = new LinkedHashMap<>();
 
-		//addMorePassword("facebook", "q348(2Q");
-		//addMorePassword("P", "Q");
+	public PasswordStorage()
+	{
+		pMap = readPasswordsToMap();
 	}
 
 	// Reads storage file into a map that can be easily analyzed.
-	public static void readPasswordsToMap(LinkedHashMap<String,String> pwMap)
+	public LinkedHashMap<String,String> readPasswordsToMap()
 	{
 		try
 		{
@@ -22,26 +20,28 @@ public class PasswordStorage{
 			while(inputF.hasNextLine())
 			{
 				String[] accountAndKey = inputF.nextLine().split(" ");
-				pwMap.put(accountAndKey[0], accountAndKey[1]);
+				pMap.put(accountAndKey[0], accountAndKey[1]);
 			}
 			inputF.close();
+			return pMap;
 		}
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File Not found");
+			return pMap;
 		}
 	}
 
 	// Writes passwords to storage file from map.
-	public static void writePasswordsFromMap(LinkedHashMap<String,String> pwMap)
+	public void writePasswordsFromMap()
 	{
 		try
 		{
 			java.io.File file = new java.io.File("Password.txt");
 			PrintWriter outputF = new PrintWriter(file);
-			for(String key : pwMap.keySet())
+			for(String key : pMap.keySet())
 			{
-				outputF.println(key + " " + pwMap.get(key));
+				outputF.println(key + " " + pMap.get(key));
 			}
 			outputF.close();
 		}
@@ -50,6 +50,12 @@ public class PasswordStorage{
 			System.out.println("File Not Found");
 		}
 		
+	}
+
+	//returns map for interface.
+	public LinkedHashMap<String,String> getMap()
+	{
+		return pMap;
 	}
 
 	//if user doesn't have Password.txt (first time using)

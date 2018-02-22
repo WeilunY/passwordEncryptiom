@@ -1,4 +1,6 @@
 /* File Header */
+import java.io.FileOutputStream;
+import java.io.*;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -20,7 +22,8 @@ import java.util.*;
 public class ProjectInterface extends Application
 {
     final int MIN_PASSWORD_LENGTH = 6;
-    LinkedHashMap<String,String> pwMap = new LinkedHashMap<>();
+    PasswordStorage stor = new PasswordStorage();
+    LinkedHashMap<String,String> pwMap = stor.getMap();
     TextField accInput;
     TextField passInput;
     TextField passOutput;
@@ -104,15 +107,23 @@ public class ProjectInterface extends Application
                 passInput.requestFocus();
                 infoText.setText("Enter 6+ char password");
             }
-            else
+            else if(pwMap.containsKey(accInput.getText()))
             {
-                // EncryptionBot encrypter = new EncryptionBot(passInput.getText());
-                encrypter.setAccount(passInput.getText());
-                passOutput.setText(encrypter.getEncrypted());
-                //passOutput.setText(encrypter.getEncryptedPassword());
+                passOutput.setText(pwMap.get(accInput.getText()));
                 passOutput.requestFocus();
                 passOutput.selectAll();
-                infoText.setText("Encryption successful!");
+                infoText.setText("Past Encryption Retrieved");
+            }
+            else
+            {
+                encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
+                encrypter.setAccount(passInput.getText());
+                passOutput.setText(encrypter.getEncrypted());
+                passOutput.requestFocus();
+                passOutput.selectAll();
+                pwMap.put(accInput.getText(), "keyFromEnc");
+                stor.writePasswordsFromMap();
+                infoText.setText("New Encryption Successful!");
             }
         }
     }
@@ -140,13 +151,22 @@ public class ProjectInterface extends Application
                 return;
 
             }
+            else if(pwMap.containsKey(accInput.getText()))
+            {
+                passOutput.setText(pwMap.get(accInput.getText()));
+                passOutput.requestFocus();
+                passOutput.selectAll();
+                infoText.setText("Past Encryption Retrieved");
+            }
             else
             {
                 encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
                 passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
-                infoText.setText("Encryption successful!");
+                pwMap.put(accInput.getText(), "keyFromEnc");
+                stor.writePasswordsFromMap();
+                infoText.setText("New Encryption Successful!");
             }
         }
     }
@@ -224,4 +244,5 @@ public class ProjectInterface extends Application
       }
       return variation > 4;
     }
+
 }
