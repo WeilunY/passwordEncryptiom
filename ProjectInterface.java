@@ -220,6 +220,7 @@ public class ProjectInterface extends Application
           variation++;
           v.add(o.charAt(i));
         }
+        check = true;
       }
       return variation > 4;
     }

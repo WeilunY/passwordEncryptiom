@@ -253,6 +253,7 @@ public class Encryption{
         variation++;
         v.add(o.charAt(i));
       }
+      check = true;
     }
     return variation > 4;
   }
