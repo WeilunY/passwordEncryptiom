@@ -133,10 +133,13 @@ public class Encryption{
   }
 
   public String getEncrypted(){
+    if(length < 6){
+      return "Please enter at least 6 chars";
+    }
     if(checkRep(original) == false){
       return "Please enter more than 4 different chars";
     }
-    
+
     char[] e = new char[length];
     char[] o = original.toCharArray();
 
@@ -220,7 +223,6 @@ public class Encryption{
   public static boolean checkRep(String o){
     int variation = 0;
     ArrayList<Character> v = new ArrayList<Character>();
-    v.add(o.charAt(0));
     boolean check = true;
     for(int i = 0; i < o.length(); i++){
       for(int j = 0; j < v.size(); j++){

@@ -198,7 +198,6 @@ public class ProjectInterface extends Application
     public static boolean checkRep(String o){
       int variation = 0;
       ArrayList<Character> v = new ArrayList<Character>();
-      v.add(o.charAt(0));
       boolean check = true;
       for(int i = 0; i < o.length(); i++){
         for(int j = 0; j < v.size(); j++){
