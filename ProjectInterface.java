@@ -20,6 +20,7 @@ import java.util.*;
 public class ProjectInterface extends Application
 {
     final int MIN_PASSWORD_LENGTH = 6;
+    LinkedHashMap<String,String> pwMap = new LinkedHashMap<>();
     TextField accInput;
     TextField passInput;
     TextField passOutput;
@@ -65,6 +66,10 @@ public class ProjectInterface extends Application
         checkLower = new CheckBox("Lowercase");
         checkNumber = new CheckBox("Number");
         checkSpecial = new CheckBox("Special Character");
+        checkUpper.setSelected(true);
+        checkLower.setSelected(true);
+        checkNumber.setSelected(true);
+        checkSpecial.setSelected(true);
         checkUpper.setOnAction(new CheckHandler());
         checkLower.setOnAction(new CheckHandler());
         checkNumber.setOnAction(new CheckHandler());
@@ -129,7 +134,7 @@ public class ProjectInterface extends Application
             }
             else if(checkRep(passInput.getText()) == false){
                 passOutput.clear();
-                infoText.setText("Please enter more than 4 different chars");
+                infoText.setText("Please enter 4+ unique chars");
                 return;
 
             }
