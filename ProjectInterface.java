@@ -34,6 +34,8 @@ public class ProjectInterface extends Application
     CheckBox checkNumber;
     CheckBox checkSpecial;
 
+    Encryption encrypter;
+
     /* Method Header */
     public void start(Stage primaryStage)
     {
@@ -105,7 +107,7 @@ public class ProjectInterface extends Application
             else
             {
                 // EncryptionBot encrypter = new EncryptionBot(passInput.getText());
-                Encryption encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
+                encrypter.setAccount(passInput.getText());
                 passOutput.setText(encrypter.getEncrypted());
                 //passOutput.setText(encrypter.getEncryptedPassword());
                 passOutput.requestFocus();
@@ -140,7 +142,7 @@ public class ProjectInterface extends Application
             }
             else
             {
-                Encryption encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
+                encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
                 passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
@@ -197,6 +199,11 @@ public class ProjectInterface extends Application
             {
               infoText.setText("Please select at least one box");
             }
+            if((((hasUpper == true) ? 1 : 0) + ((hasLower == true) ? 1 : 0)
+              + ((hasSpecial == true) ? 1 : 0) + ((hasNumber == true) ? 1 : 0)) < encrypter.getHas()){
+                infoText.setText("Please make sure the target is more complex than original");
+              }
+
         }
     }
 

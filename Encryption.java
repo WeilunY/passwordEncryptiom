@@ -136,7 +136,7 @@ public class Encryption{
     if(length < 6){
       return "Please enter at least 6 chars";
     }
-    if(checkRep(original) == false){
+    else if(checkRep(original) == false){
       return "Please enter more than 4 different chars";
     }
 
@@ -153,6 +153,12 @@ public class Encryption{
 
       for(int i = 0; i < o.length; i++){
         int pos = getIndex(o[i], key1);
+        if (pos > key2.size()){
+          i = 0;
+          Collections.shuffle(key1);
+          Collections.shuffle(key2);
+          continue;
+        }
         if (pos >= 0)
           e[i] = key2.get(pos);
         }
@@ -169,7 +175,8 @@ public class Encryption{
           s = true;
         }
 
-        correct = u && l && n && s;
+        correct = (u == this.wantUpper) && (l == this.wantLower)
+                    && (n == this.wantNumber) && (s == this.wantSpecial);
 
         if(correct == false){
           Collections.shuffle(key1);
@@ -180,6 +187,10 @@ public class Encryption{
     String encrypted = new String(e);
 
     return encrypted;
+  }
+
+  public void setAccount(String name){
+    this.account = name;
   }
 
   public String getKey1(){
@@ -203,6 +214,15 @@ public class Encryption{
   public boolean[] getNeeds(){
     boolean[] needs = {wantUpper, wantLower, wantNumber, wantSpecial};
     return needs;
+  }
+
+  public int getHas(){
+    int has = 0;
+    has += (this.hasUpper == true) ? 1 : 0;
+    has += (this.hasLower == true) ? 1 : 0;
+    has += (this.hasSpecial == true) ? 1 : 0;
+    has += (this.hasNumber == true) ? 1 : 0;
+    return has;
   }
 
   public String getAccount(){

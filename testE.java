@@ -4,7 +4,7 @@ public class testE{
     Scanner input = new Scanner(System.in);
     System.out.print("Simple password: ");
     String in = input.nextLine();
-    Encryption test1 = new Encryption(in, true, true, true, true);
+    Encryption test1 = new Encryption(in, false, true, true, true);
 
     input.close();
     String e = test1.getEncrypted();
@@ -13,7 +13,7 @@ public class testE{
     System.out.println("key 1 : " + key1);
     System.out.println("key 2 : " + key2);
     System.out.println("Original:   " + in);
-    System.out.println("Encryption: " + e);
+    //System.out.println("Encryption: " + e);
 
   }
 }
