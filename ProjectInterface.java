@@ -1,4 +1,5 @@
-/* File Header */
+/* This file contains the implementation of the user interface for this 
+ * encryption tool */
 import java.io.FileOutputStream;
 import java.io.*;
 import javafx.application.Application;
@@ -18,7 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.*;
 
-/* Class Header */
+/* Class designed to run the user interface of the encryption tool */
 public class ProjectInterface extends Application
 {
     final int MIN_PASSWORD_LENGTH = 6;
@@ -39,14 +40,17 @@ public class ProjectInterface extends Application
 
     Encryption encrypter;
 
-    /* Method Header */
+    /* Creates and fills pane/stage, displays interface */
     public void start(Stage primaryStage)
     {
+        // Set up pane.
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(10));
         pane.setHgap(5);
         pane.setVgap(5);
+
+        // Create and add textfields, buttons and their respective labels.
         pane.add(new Label("Encryption Tool"), 2, 0);
         pane.add(new Label("Account/Website"), 0, 1);
         accInput = new TextField();
@@ -67,6 +71,8 @@ public class ProjectInterface extends Application
         infoText.setWrappingWidth(200);
         infoText.setVisible(true);
         pane.add(infoText, 2, 5);
+
+        //Create CheckBoxes that allow user to parametrize the encryption.
         checkUpper = new CheckBox("Uppercase");
         checkLower = new CheckBox("Lowercase");
         checkNumber = new CheckBox("Number");
@@ -84,6 +90,7 @@ public class ProjectInterface extends Application
         pane.add(checkNumber, 2, 10);
         pane.add(checkSpecial, 2, 11);
 
+        // Add pane to and display stage.
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Encryption Tool");
         primaryStage.setScene(scene);
@@ -229,6 +236,7 @@ public class ProjectInterface extends Application
         }
     }
 
+    // checks that user has entered a password with >4 unique chars
     public static boolean checkRep(String o){
       int variation = 0;
       ArrayList<Character> v = new ArrayList<Character>();
