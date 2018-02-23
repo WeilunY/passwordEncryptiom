@@ -117,7 +117,7 @@ public class ProjectInterface extends Application
             else
             {
                 encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
-                encrypter.setAccount(passInput.getText());
+                encrypter.setAccount(accInput.getText());
                 passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
