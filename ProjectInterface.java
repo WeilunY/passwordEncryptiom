@@ -108,9 +108,11 @@ public class ProjectInterface extends Application
                 infoText.setText("Enter 6+ char password");
             }
             else if(pwMap.containsKey(accInput.getText()))
-            {
+            { System.out.println("start retrival");
                 encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
+              System.out.println("new Encryption created");
                 passOutput.setText(encrypter.getPastEncrypted());
+              System.out.println("Encrypted password get");
                 passOutput.requestFocus();
                 passOutput.selectAll();
                 infoText.setText("Past Encryption Retrieved");
