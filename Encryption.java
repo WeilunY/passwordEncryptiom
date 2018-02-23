@@ -123,13 +123,14 @@ public class Encryption{
 
   public Encryption(String simple, String keyOne, String keyTwo){
     this.original = simple;
+    this.length = simple.length();
     // need a for loop here
     for(int i = 0; i < keyOne.length(); i++){
       this.key1.add(keyOne.charAt(i));
     }
 
-    for(int i = 0; i < keyTwo.length(); i++){
-      this.key2.add(keyOne.charAt(i));
+    for(int j = 0; j < keyTwo.length(); j++){
+      this.key2.add(keyTwo.charAt(j));
     }
   }
 
@@ -194,7 +195,7 @@ public class Encryption{
   public String getPastEncrypted(){
     char[] e = new char[length];
     char[] o = original.toCharArray();
-    for(int i = 0; i < o.length; i++){
+    for(int i = 0; i < length; i++){
       int pos = getIndex(o[i], key1);
       if (pos >= 0)
         e[i] = key2.get(pos);
