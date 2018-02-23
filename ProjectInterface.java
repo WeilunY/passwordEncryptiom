@@ -155,7 +155,7 @@ public class ProjectInterface extends Application
             else if(pwMap.containsKey(accInput.getText()))
             {
                 encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
-                passOutput.setText(encrypter.getEncrypted());
+                passOutput.setText(encrypter.getPastEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
                 infoText.setText("Past Encryption Retrieved");

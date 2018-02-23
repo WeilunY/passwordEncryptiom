@@ -190,6 +190,20 @@ public class Encryption{
     return encrypted;
   }
 
+  // Use for
+  public String getPastEncrypted(){
+    char[] e = new char[length];
+    char[] o = original.toCharArray();
+    for(int i = 0; i < o.length; i++){
+      int pos = getIndex(o[i], key1);
+      if (pos >= 0)
+        e[i] = key2.get(pos);
+      }
+      String encrypted = new String(e);
+
+      return encrypted;
+  }
+
   public void setAccount(String name){
     this.account = name;
   }
