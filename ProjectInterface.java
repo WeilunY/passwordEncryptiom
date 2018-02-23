@@ -64,7 +64,7 @@ public class ProjectInterface extends Application
         passOutput.setEditable(false);
         pane.add(passOutput, 2, 4);
         infoText = new Text("");
-        infoText.setTextAlignment(TextAlignment.RIGHT);
+        infoText.setWrappingWidth(200);
         infoText.setVisible(true);
         pane.add(infoText, 2, 5);
         checkUpper = new CheckBox("Uppercase");
@@ -79,10 +79,10 @@ public class ProjectInterface extends Application
         checkLower.setOnAction(new CheckHandler());
         checkNumber.setOnAction(new CheckHandler());
         checkSpecial.setOnAction(new CheckHandler());
-        pane.add(checkUpper, 2, 6);
-        pane.add(checkLower, 2, 7);
-        pane.add(checkNumber, 2, 8);
-        pane.add(checkSpecial, 2, 9);
+        pane.add(checkUpper, 2, 8);
+        pane.add(checkLower, 2, 9);
+        pane.add(checkNumber, 2, 10);
+        pane.add(checkSpecial, 2, 11);
 
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Encryption Tool");
