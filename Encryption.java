@@ -1,6 +1,7 @@
 import java.util.*;
 public class Encryption{
 
+  // Data Files:
   private String original;
 
   private boolean hasUpper;
