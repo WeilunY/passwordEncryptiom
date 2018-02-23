@@ -3,7 +3,7 @@ import java.io.FileOutputStream;
 import java.io.*;
 
 public class PasswordStorage{
-	LinkedHashMap<String,String> pMap = new LinkedHashMap<>();
+	LinkedHashMap<String,String[]> pMap = new LinkedHashMap<>();
 
 	public PasswordStorage()
 	{
@@ -11,7 +11,7 @@ public class PasswordStorage{
 	}
 
 	// Reads storage file into a map that can be easily analyzed.
-	public LinkedHashMap<String,String> readPasswordsToMap()
+	public LinkedHashMap<String,String[]> readPasswordsToMap()
 	{
 		try
 		{
@@ -20,7 +20,7 @@ public class PasswordStorage{
 			while(inputF.hasNextLine())
 			{
 				String[] accountAndKey = inputF.nextLine().split(" ");
-				pMap.put(accountAndKey[0], accountAndKey[1]);
+				pMap.put(accountAndKey[0], trimAccount(accountAndKey));
 			}
 			inputF.close();
 			return pMap;
@@ -41,7 +41,7 @@ public class PasswordStorage{
 			PrintWriter outputF = new PrintWriter(file);
 			for(String key : pMap.keySet())
 			{
-				outputF.println(key + " " + pMap.get(key));
+				outputF.println(key + " " + pMap.get(key)[0] + " " + pMap.get(key)[1]);
 			}
 			outputF.close();
 		}
@@ -52,8 +52,19 @@ public class PasswordStorage{
 		
 	}
 
+	//trims account out of key array
+	public String[] trimAccount(String[] accountPresent)
+	{
+		String[] accNotPresent = new String[2];
+		for(int i=1; i<accountPresent.length;i++)
+		{
+			accNotPresent[i-1] = accountPresent[i];
+		}
+		return accNotPresent;
+	}
+
 	//returns map for interface.
-	public LinkedHashMap<String,String> getMap()
+	public LinkedHashMap<String,String[]> getMap()
 	{
 		return pMap;
 	}

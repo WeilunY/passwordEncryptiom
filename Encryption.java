@@ -258,4 +258,12 @@ public class Encryption{
     }
     return variation > 4;
   }
+
+  public String[] getKeys()
+  {
+    String[] keys = new String[2];
+    keys[0] = getKey1();
+    keys[1] = getKey2();
+    return keys;
+  }
 }

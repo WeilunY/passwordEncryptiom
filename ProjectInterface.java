@@ -22,8 +22,8 @@ import java.util.*;
 public class ProjectInterface extends Application
 {
     final int MIN_PASSWORD_LENGTH = 6;
-    PasswordStorage stor = new PasswordStorage();
-    LinkedHashMap<String,String> pwMap = stor.getMap();
+    PasswordStorage pwStorage = new PasswordStorage();
+    LinkedHashMap<String,String[]> pwMap = pwStorage.getMap();
     TextField accInput;
     TextField passInput;
     TextField passOutput;
@@ -109,7 +109,8 @@ public class ProjectInterface extends Application
             }
             else if(pwMap.containsKey(accInput.getText()))
             {
-                passOutput.setText(pwMap.get(accInput.getText()));
+                encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
+                passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
                 infoText.setText("Past Encryption Retrieved");
@@ -121,8 +122,8 @@ public class ProjectInterface extends Application
                 passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
-                pwMap.put(accInput.getText(), "keyFromEnc");
-                stor.writePasswordsFromMap();
+                pwMap.put(accInput.getText(), encrypter.getKeys());
+                pwStorage.writePasswordsFromMap();
                 infoText.setText("New Encryption Successful!");
             }
         }
@@ -153,7 +154,8 @@ public class ProjectInterface extends Application
             }
             else if(pwMap.containsKey(accInput.getText()))
             {
-                passOutput.setText(pwMap.get(accInput.getText()));
+                encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
+                passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
                 infoText.setText("Past Encryption Retrieved");
@@ -164,8 +166,8 @@ public class ProjectInterface extends Application
                 passOutput.setText(encrypter.getEncrypted());
                 passOutput.requestFocus();
                 passOutput.selectAll();
-                pwMap.put(accInput.getText(), "keyFromEnc");
-                stor.writePasswordsFromMap();
+                pwMap.put(accInput.getText(), encrypter.getKeys());
+                pwStorage.writePasswordsFromMap();
                 infoText.setText("New Encryption Successful!");
             }
         }
