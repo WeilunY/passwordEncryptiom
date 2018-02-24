@@ -1,4 +1,4 @@
-/* This file contains the implementation of the user interface for this 
+/* This file contains the implementation of the user interface for this
  * encryption tool */
 import java.io.FileOutputStream;
 import java.io.*;
@@ -94,6 +94,8 @@ public class ProjectInterface extends Application
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Encryption Tool");
         primaryStage.setScene(scene);
+        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(300);
         primaryStage.show();
     }
 
@@ -115,7 +117,7 @@ public class ProjectInterface extends Application
                 infoText.setText("Enter 6+ char password");
             }
             else if(pwMap.containsKey(accInput.getText()))
-            { 
+            {
                 encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
                 passOutput.setText(encrypter.getPastEncrypted());
                 passOutput.requestFocus();
