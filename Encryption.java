@@ -1,14 +1,20 @@
 import java.util.*;
+
+/*
+ * The encryption class creates two keys that encrypt the simple password
+ */
 public class Encryption{
 
   // Data Files:
   private String original;
 
+  // The characters contains by user's simple password
   private boolean hasUpper;
   private boolean hasLower;
   private boolean hasNumber;
   private boolean hasSpecial;
 
+  // The characters that user desire to have
   private boolean wantUpper;
   private boolean wantLower;
   private boolean wantNumber;
@@ -16,12 +22,22 @@ public class Encryption{
 
   private int length;
 
+  // Encryption key
   private ArrayList<Character> key1 = new ArrayList<Character>();
   private ArrayList<Character> key2 = new ArrayList<Character>();
 
   private String account = "NONE";
 
-
+  /*
+   * Constructer, initialize all data fields
+   * Used if has account name
+   * @param simple: user's input
+   * @param wantUpper: whether key2 contains uppercase
+   * @param wantLower: whether key2 contains lowercase
+   * @param wantNumber: whether key2 contains numbers
+   * @param wantSpecial: whether key2 contains special chars
+   * @param account: account name (optional)
+   */
   public Encryption(String simple, boolean wantUpper,
                     boolean wantLower, boolean wantNumber,
                     boolean wantSpecial, String account){
@@ -29,11 +45,21 @@ public class Encryption{
       this.account = account;
     }
 
+  /*
+   * Main Constructer, initialize all data fields except account
+   * @param simple: user's input
+   * @param wantUpper: whether key2 contains uppercase
+   * @param wantLower: whether key2 contains lowercase
+   * @param wantNumber: whether key2 contains numbers
+   * @param wantSpecial: whether key2 contains special chars
+   */
   public Encryption(String simple, boolean wantUpper,
                     boolean wantLower, boolean wantNumber,
                     boolean wantSpecial){
+
     //initialize original string
     this.original = simple;
+
     // initialize wants
     this.wantUpper = wantUpper;
     this.wantLower = wantLower;
@@ -56,9 +82,8 @@ public class Encryption{
         this.hasSpecial = true;
     }
 
-    //ArrayList<Character> key1 = new ArrayList<Character>();
-    //ArrayList<Character> key2 = new ArrayList<Character>();
-    //Initialize both key1 and key2
+    // Initialize both key1 and key2
+    // key1: (has)
     if(hasUpper){
       String u = "ABCDEFGHIJILMNOPQRSTUVWXYZ";
       for(char ch : u.toCharArray()){
@@ -87,7 +112,7 @@ public class Encryption{
       }
     }
 
-    // wants
+    // key2: (wants)
     if(wantUpper){
       String u = "ABCDEFGHIJILMNOPQRSTUVWXYZ";
       for(char ch : u.toCharArray()){
@@ -121,10 +146,18 @@ public class Encryption{
     Collections.shuffle(key2);
   }
 
+
+  /*
+   * Constructer for password retrival
+   * @param simple: user's input
+   * @param keyOne: key1 as string retrived from local txt
+   * @param keyTwo: key2 as string retrived from local txt
+   */
   public Encryption(String simple, String keyOne, String keyTwo){
     this.original = simple;
     this.length = simple.length();
-    // need a for loop here
+
+    // initialze keys
     for(int i = 0; i < keyOne.length(); i++){
       this.key1.add(keyOne.charAt(i));
     }
@@ -134,7 +167,16 @@ public class Encryption{
     }
   }
 
+  // instance methods:
+
+  /*
+   * This method creates an encrypted base on key1 and key2
+   * It checks the position of char in key1 and return the same position in key2
+   * @return: the encrypted password that meet all the need
+   */
   public String getEncrypted(){
+
+    // Protection (optional with interface)
     if(length < 6){
       return "Please enter at least 6 chars";
     }
@@ -147,12 +189,14 @@ public class Encryption{
 
     boolean correct = false;
 
+    // generate encrypted and check whether the result meet all wants.
     do{
       boolean u = false;
       boolean l = false;
       boolean n = false;
       boolean s = false;
 
+      // generate encrypted
       for(int i = 0; i < o.length; i++){
         int pos = getIndex(o[i], key1);
         if (pos > key2.size()){
@@ -165,6 +209,7 @@ public class Encryption{
           e[i] = key2.get(pos);
         }
 
+      // check wants
       for(int i = 0; i < e.length; i++){
         char c = e[i];
         if(c >= 65 && c <= 90)
@@ -180,6 +225,7 @@ public class Encryption{
         correct = (u == this.wantUpper) && (l == this.wantLower)
                     && (n == this.wantNumber) && (s == this.wantSpecial);
 
+        // reshuffle the keys if wants not meet
         if(correct == false){
           Collections.shuffle(key1);
           Collections.shuffle(key2);
@@ -191,7 +237,12 @@ public class Encryption{
     return encrypted;
   }
 
-  // Use for
+  /*
+   * This method creates an encrypted base on key1 and key2 retrived from local txt
+   * It checks the position of char in key1 and return the same position in key2
+   * - No wants check (more efficient)
+   * @return: the past encrypted password
+   */
   public String getPastEncrypted(){
     char[] e = new char[length];
     char[] o = original.toCharArray();
@@ -205,10 +256,15 @@ public class Encryption{
       return encrypted;
   }
 
+  // Set account (optional)
   public void setAccount(String name){
     this.account = name;
   }
 
+  /*
+   * This method return key1 as String
+   * @return: key1 as string
+   */
   public String getKey1(){
     char[] r = new char[this.key1.size()];
     for(int i = 0; i < this.key1.size(); i++){
@@ -218,6 +274,11 @@ public class Encryption{
     return result;
   }
 
+
+  /*
+   * This method return key2 as String
+   * @return: key2 as string
+   */
   public String getKey2(){
     char[] r = new char[this.key2.size()];
     for(int i = 0; i < this.key2.size(); i++){
@@ -227,11 +288,10 @@ public class Encryption{
     return result;
   }
 
-  public boolean[] getNeeds(){
-    boolean[] needs = {wantUpper, wantLower, wantNumber, wantSpecial};
-    return needs;
-  }
-
+  /*
+   * This method return the types of chars original password contains
+   * @return: # of types char in simple
+   */
   public int getHas(){
     int has = 0;
     has += (this.hasUpper == true) ? 1 : 0;
@@ -241,11 +301,35 @@ public class Encryption{
     return has;
   }
 
+  /*
+   * This method return account as String
+   * @return: account as string
+   */
   public String getAccount(){
     return this.account;
   }
 
+  /*
+   * This method return both keys as String array
+   * @return: keys as string array
+   */
+  public String[] getKeys()
+  {
+    String[] keys = new String[2];
+    keys[0] = getKey1();
+    keys[1] = getKey2();
+    return keys;
+  }
+
+
   // Help methods:
+
+  /*
+   * This method return the index of char in arraylist
+   * @param a: the char checked for index
+   * @param arr: the arraylist char need to be checked in
+   * @return: index of char in arraylist
+   */
   public static int getIndex(char a, ArrayList<Character> arr){
     int pos = 0;
     for(int i = 0; i < arr.size(); i++){
@@ -256,6 +340,12 @@ public class Encryption{
     return pos;
   }
 
+
+  /*
+   * This method check whether string contains more than 4 different chars
+   * @param o: the string needed for check
+   * @return: true if o contains more than 4 different chars, false otherwise
+   */
   public static boolean checkRep(String o){
     int variation = 0;
     ArrayList<Character> v = new ArrayList<Character>();
@@ -274,11 +364,5 @@ public class Encryption{
     return variation > 4;
   }
 
-  public String[] getKeys()
-  {
-    String[] keys = new String[2];
-    keys[0] = getKey1();
-    keys[1] = getKey2();
-    return keys;
-  }
+
 }
