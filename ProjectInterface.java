@@ -116,6 +116,7 @@ public class ProjectInterface extends Application
                 passInput.requestFocus();
                 infoText.setText("Enter 6+ char password");
             }
+            // retrive past password
             else if(pwMap.containsKey(accInput.getText()))
             {
                 encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
@@ -124,6 +125,7 @@ public class ProjectInterface extends Application
                 passOutput.selectAll();
                 infoText.setText("Past Encryption Retrieved");
             }
+            // generate new encryption
             else
             {
                 encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
@@ -161,6 +163,7 @@ public class ProjectInterface extends Application
                 return;
 
             }
+            // retrive past password
             else if(pwMap.containsKey(accInput.getText()))
             {
                 encrypter = new Encryption(passInput.getText(), pwMap.get(accInput.getText())[0], pwMap.get(accInput.getText())[1]);
@@ -169,6 +172,7 @@ public class ProjectInterface extends Application
                 passOutput.selectAll();
                 infoText.setText("Past Encryption Retrieved");
             }
+            // generate new encryption
             else
             {
                 encrypter = new Encryption(passInput.getText(), hasUpper, hasLower, hasNumber, hasSpecial);
@@ -238,7 +242,7 @@ public class ProjectInterface extends Application
         }
     }
 
-    // helper methods: 
+    // helper methods:
 
       /*
        * This method check whether string contains more than 4 different chars
