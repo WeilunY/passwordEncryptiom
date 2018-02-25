@@ -238,7 +238,13 @@ public class ProjectInterface extends Application
         }
     }
 
-    // checks that user has entered a password with >4 unique chars
+    // helper methods: 
+
+      /*
+       * This method check whether string contains more than 4 different chars
+       * @param o: the string needed for check
+       * @return: true if o contains more than 4 different chars, false otherwise
+       */
     public static boolean checkRep(String o){
       int variation = 0;
       ArrayList<Character> v = new ArrayList<Character>();
