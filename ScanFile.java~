@@ -16,22 +16,26 @@ public class ScanFile{
 		Scanner input = new Scanner(file);
 
 		//prompt user for simple password
-		System.out.print("Enter your simple password: ");
-		String simplePassword = pass.next();
+		try{
+			System.out.print("Enter your simple password: ");
+			String simplePassword = pass.next();
 
-		//search Password.txt file for the encrypted password
-		while(input.hasNext()){
-			String searchFile = input.next();
-			if(searchFile.contains(simplePassword)){
-				System.out.print(input.next());
-				break;
-			}
-			else{
-				System.out.print("The password entered does not exist"); 
-				break;
+			//search Password.txt file for the encrypted password
+			while(input.hasNext()){
+				String searchFile = input.next();
+				if(searchFile.contains(simplePassword)){
+					System.out.print(input.next());
+					break;
+				}
+				else{
+					System.out.print("The password entered does not exist"); 
+					break;
+				}
 			}
 		}
-	
+		catch (FileNotFoundException e){
+			System.out.print("You do not have the file");
+		}
 	}
 }
 
